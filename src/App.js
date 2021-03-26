@@ -4,6 +4,8 @@ import axios from 'axios'
 import Pagination from './Pagination'
 
 
+
+
 export default function App() {
     const [pokemon, setPokemon] = useState([])
     const [currentPageUrl, setCurrentPageUrl] = useState("https://pokeapi.co/api/v2/pokemon")
@@ -11,7 +13,6 @@ export default function App() {
     const [prevPageUrl, setPrevPageUrl] = useState()
     const [loading, setLoading] = useState(true)
 
-    
   
     useEffect(() => {
         setLoading(false)
@@ -27,6 +28,7 @@ export default function App() {
         })
         return () => cancel()
     }, [currentPageUrl])
+
 
     function gotoNextP() {
         setCurrentPageUrl(nextPageUrl)
@@ -45,6 +47,7 @@ export default function App() {
                 gotoNextP={nextPageUrl ? gotoNextP : null}  
                 gotoPrevP={prevPageUrl ? gotoPrevP : null} 
             />
+           
         </>
     )
 }
