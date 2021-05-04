@@ -1,17 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import FavoriteContext from '../contexts/favoritesContexts'
 
 const Pokemon = ({pokemon}) => {
-    console.log(pokemon)
+
+    const {favoritePokemons, updateFavoritePokemons } =  useContext(FavoriteContext);
+
+    const redHeart = "❤️";
+    const blackHeart = "🖤";
+    const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart;
+
+    const clickFavorite = (e) => {
+        e.preventDefault();
+        updateFavoritePokemons(pokemon.name);
+    }
+       
     return (
         <div className="pokemon_card">
-          <div>{pokemon.name}</div>
+          <div><h3>{pokemon.name} </h3></div>
+          <div><button onClick={clickFavorite}>{heart}</button></div>
           <div><img src={pokemon.sprites.front_default} /></div>
-          <div>{pokemon.species.name} </div>
-          <div> 
+          <div>Especie:{pokemon.species.name} </div>
+          <div> Habilidades
            <ul>
                 {
                     pokemon.abilities.map( (e) => {
-                        return (<li>{e.ability.name}</li>)
+                        return (<li key={e.ability.name}>{e.ability.name}</li>)
                     } )
                 }
              </ul>
