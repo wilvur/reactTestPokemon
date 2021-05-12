@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import Pokedex from './components/Pokedex'
 import { getPokemon, getPokemonData, searchPokemon } from './api'
 import { FavoriteProvider } from './contexts/favoritesContexts'
-import SearchBar from './components/SearchBar'
+
 
 const localStoreageKey = "favorite_pokemon"
 
@@ -15,8 +15,7 @@ export default function App() {
     const [loading, setloading] = useState(true);
     const [offset, setoffset] = useState(15);
     const [favorites, setFavorites] = useState([]);
-    const [notfound, setNotfound] = useState(false)
-    
+    const [notfound, setNotfound] = useState(false);
 
     const fetchPokemons = async () => {
         try {
@@ -64,7 +63,7 @@ export default function App() {
 
     const onSearch = async (pokemon) => {
         if (!pokemon) {
-            setloading(true);
+            setloading(false);
             setNotfound(false);
            
         }
@@ -78,14 +77,13 @@ export default function App() {
              favoritePokemons: favorites,
              updateFavoritePokemons: updateFavoritePokemons
         }} >
-         <Navbar /> 
-         <SearchBar onSearch={onSearch} />
+         <Navbar onSearch={onSearch}/>       
             <Pokedex 
                 pokemons={pokemons}
                 page={page}
                 setpage={setpage} 
                 total={total}
-                loading={loading} 
+                loading={loading}            
             />
         </FavoriteProvider>
         </>
