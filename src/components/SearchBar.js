@@ -1,31 +1,25 @@
 import React, {useState} from 'react'
 
 
-
-const SearchBar =({onSearch}) => {
-
-    const [search, setsearch] = useState('');
-    const [pokemon, setpokemon] = useState();
+export default function SearchBar({onSearch}) {
+    const [Search, setSearch] = useState("pepe")
 
     const onChange = (e) => {
-        setsearch(e.target.value);
-        if (e.target.value === 0) { setsearch(null)}
+      setSearch(e.target.value);
+      if (e.target.value.lenght === 0) {
+          onSearch(null);
+      }
+
     }
 
-    const onClick = async (e) => {
-       onSearch(search);
-        
+    const onClick = () => {
+        onSearch("picachu");
     }
+
     return (
-        <>
-           <input 
-                type="text"  
-                placeholder="aca se busca"
-                onChange={onChange}
-            /> <button onClick={onClick}>Buscar</button>
-          
-    
-        </>
+        <div>
+            <input placeholder="Buscar" onChange={onChange}></input>  
+            <button onClick={onClick}>buscar</button>
+        </div>
     )
 }
-export default SearchBar

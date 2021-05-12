@@ -1,9 +1,45 @@
 import React from 'react'
 import Pagination from './Pagination';
 import Pokemon from './Pokemon';
+import styled from 'styled-components/macro'
+import {ReactComponent as Pokebola} from './icons/pokeball.svg'
+
+
+    ///////////////////////////////////// estilos
+    const PokedexContainer = styled.div`
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-gap: 1em;
+        margin:30px;
+    `;
+
+    const TituloAPP = styled.h1`
+        width:100%;
+        color:#4a4a4a;
+        justify-content: center;
+        text-align:center;
+        padding: 30px 10px;
+    `
+    const BG = styled.div`
+        position:absolute;        
+        z-index:-999;
+        -webkit-animation:spin 8s linear infinite;
+        -moz-animation:spin 8s linear infinite;
+        animation:spin 8s linear infinite;
+        transform-origin: center;
+        transform-box: fill-box;
+    `
+    const LoadingContainer = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-items:center;
+    `
+
 
 export default function Pokedex(props) {
     const {pokemons, page, setpage, total, loading} = props;
+
 
     //console.log("page = "+ page)
 
@@ -19,28 +55,27 @@ export default function Pokedex(props) {
     } 
    
    
-    
     return (
-        <div >
-            <h1>Pokedex</h1>
-
-            <Pagination 
-                page={page + 1} 
-                totalPage={total} 
-                onLeftClick={lastPage}
-                onRightClick={nextPage}      
-            />
-
+        < >
+        <BG>
+        </BG>
+            <TituloAPP>Pokedex</TituloAPP>
+           
+            
              { loading ? (
-                <div>cargando pokemones</div>
+                <LoadingContainer>
+                    
+                </LoadingContainer>
                 )    :    (
-             <div className="pokedexContainer">
+             <PokedexContainer>
+             
+             <Pokebola id="pokebola"/>
                { 
                    pokemons.map((pokemon, idx) => {
                        return <Pokemon pokemon={pokemon} key={pokemon.name} />              
                    })
                }
-             </div> 
+             </PokedexContainer> 
              
              ) }
              <Pagination 
@@ -49,6 +84,6 @@ export default function Pokedex(props) {
                 onLeftClick={lastPage}
                 onRightClick={nextPage}      
              />
-        </div>
+        </>
     )
 }
