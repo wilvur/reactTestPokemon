@@ -6,7 +6,9 @@ export const searchPokemon = async (pokemon) => {
         
      return data;
 
-    } catch (error) {}   
+    } catch (error) {
+        console.log("no encontrado pokemon")
+    }   
 
 }
 
@@ -27,4 +29,20 @@ export const getPokemonData = async (url) => {
 
     } catch (error) {}   
 
+}
+
+
+
+export const getPokemonNames = async () => {
+    try {
+     let url = `https://pokeapi.co/api/v2/pokemon?limit=3000`
+     const response = await fetch(url);
+     const data = await response.json() ; 
+    // armo una lista con los nombres para el auto-completar 
+     const lista = await data.results.map((nombre) => {
+        return nombre.name
+    })
+    return lista;
+    
+    } catch (error) {}  
 }
