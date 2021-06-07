@@ -53,7 +53,7 @@ const Pokemon = ({pokemon}) => {
     const clickFavorite = (e) => {
         e.preventDefault();
         updateFavoritePokemons(pokemon.name);
-        console.log("di al boton")
+        
     }
        
     return (

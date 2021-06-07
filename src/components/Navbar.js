@@ -26,14 +26,14 @@ const Toolbar = styled.div`
    padding:1rem;
   `
 
-export default function Navbar({onSearch}) {
+export default function Navbar({onSearch, names}) {
     const {favoritePokemons} = useContext(FavoriteContext)
     return (
         <>        
-       <Logo><img src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" /></Logo>
+       <Logo><img  alt="pokedex"src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" /></Logo>
         <Toolbar>
         <Favorites_div>🖤 {favoritePokemons.length}</Favorites_div>
-        <SearchBar onSearch={onSearch}/>
+        <SearchBar onSearch={onSearch} names={names}/>
         </Toolbar>
         </>
     )
