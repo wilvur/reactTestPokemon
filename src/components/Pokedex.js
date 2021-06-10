@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import Pagination from './Pagination';
 import Pokemon from './Pokemon';
 import styled from 'styled-components/macro'
@@ -39,10 +39,7 @@ import {ReactComponent as Pokebola} from './icons/pokeball.svg'
 
 export default function Pokedex(props) {
     const {pokemons, page, setpage, total, loading} = props;
-
-
-    //console.log("page = "+ page)
-
+ 
     const lastPage = () => {
         const nextPage = Math.max(page -1 , 0);
         //console.log("lastpge " + nextPage)
@@ -59,7 +56,7 @@ export default function Pokedex(props) {
         < >
         <BG>
         </BG>
-            <TituloAPP>Pokedex</TituloAPP>
+            <TituloAPP>Pokedex = {pokemons.lenght} </TituloAPP>
            
             
              { loading ? (
@@ -72,7 +69,7 @@ export default function Pokedex(props) {
              <Pokebola id="pokebola"/>
                { 
                    pokemons.map((pokemon, idx) => {
-                       return <Pokemon pokemon={pokemon} key={pokemon.name} />              
+                       return <Pokemon pokemon={pokemon} pokeL={pokemons.length} key={pokemon.name} />              
                    })
                }
              </PokedexContainer> 

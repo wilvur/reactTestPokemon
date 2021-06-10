@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import FavoriteContext from '../contexts/favoritesContexts'
 import styled from 'styled-components'
-import SearchBar from './SearchBar'
+import Search from './Search'
 
 
 const Logo = styled.div`
@@ -22,18 +22,18 @@ const Toolbar = styled.div`
     
   `;
 
-  const Favorites_div = styled.div`
+  const FavoritesDiv = styled.div`
    padding:1rem;
   `
 
-export default function Navbar({onSearch, names}) {
+export default function Navbar({onSearch, PokemonNames}) {
     const {favoritePokemons} = useContext(FavoriteContext)
     return (
         <>        
        <Logo><img  alt="pokedex"src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" /></Logo>
         <Toolbar>
-        <Favorites_div>🖤 {favoritePokemons.length}</Favorites_div>
-        <SearchBar onSearch={onSearch} names={names}/>
+        <Search onSearch={onSearch} PokemonNames={PokemonNames}/>
+        <FavoritesDiv>🖤 {favoritePokemons.length}</FavoritesDiv>
         </Toolbar>
         </>
     )

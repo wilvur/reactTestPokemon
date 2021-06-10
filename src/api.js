@@ -30,37 +30,4 @@ export const getPokemonData = async (url) => {
     } catch (error) {}   
 
 }
-
-
-export const getPokemonNames = async () => {
-    try {
-     let url = `https://pokeapi.co/api/v2/pokemon?limit=3000`
-     const response = await fetch(url);
-     const data = await response.json() ; 
-    // armo una lista con los nombres para el auto-completar 
-     const lista = await data.results.map((nombre) => {
-        return nombre.name
-    })
-    return lista;
-    
-    } catch (error) {}  
-}
-
-
-export const getPokemon2 = () => {
-    const pokemon2 = [];
-    const prometido = new Array(240).fill().map((v, i) => fetch(`https://pokeapi.co/api/v2/pokemon-form/${i + 1}`));
-    Promise.all(prometido).then(pokemonArgen => {
-      return pokemonArgen.map(value =>
-        value
-          .json()
-          .then(({ name, sprites: { front_default: sprite } }) =>
-            pokemon2.push({ name, sprite })
-          )
-      );
-    });
-    //setOptions(pokemon);
-    console.log(pokemon2)
-    return pokemon2; 
-
-}
+/// trae los nombres para buscador

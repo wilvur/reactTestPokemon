@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import './style.css'
 import Navbar from './components/Navbar'
 import Pokedex from './components/Pokedex'
-import { getPokemon, getPokemonData, searchPokemon, getPokemonNames, getPokemon2 } from './api'
+import { getPokemon, getPokemonData, searchPokemon, getPokemonNames } from './api'
 import { FavoriteProvider } from './contexts/favoritesContexts'
 
 
@@ -10,14 +10,16 @@ const localStoreageKey = "favorite_pokemon"
 
 export default function App() {
     const [pokemons, setpokemons] = useState([]);
+    const [pokemonsL, setpokemonL] = useState(30);
     const [page, setpage] = useState(0);
     const [total, settotal] = useState(0);
     const [loading, setloading] = useState(true);
-    const [offset, setoffset] = useState(80);
+    const [offset, setoffset] = useState(30);
     const [favorites, setFavorites] = useState([]);
     const [notfound, setNotfound] = useState(false);
-    const [names, setNames] = useState([]);
 
+
+    const [PokemonNames, setPokemonName] = useState([]);
 
 
     const fetchPokemons = async () => {
@@ -31,7 +33,8 @@ export default function App() {
             const results = await Promise.all(promises);
                 setpokemons(results) ;
                 setloading(false);
-                settotal(Math.ceil(data.count / offset))         
+                settotal(Math.ceil(data.count / offset)); 
+                
             
         } catch (error) { }            
     }
@@ -41,9 +44,25 @@ export default function App() {
         setFavorites(pokemons);
     }
 
+    const getPokemonNames = async () => {
+        try {
+          let url = `https://pokeapi.co/api/v2/pokemon?limit=1`;
+          const response = await fetch(url).then((res) => res.json());
+          const total = response.count;
+    
+          if (total) {
+            fetch(`https://pokeapi.co/api/v2/pokemon?limit=${total}`)
+              .then((res) => res.json())
+              .then((res) => {
+                setPokemonName(res.results);
+              });
+          }
+        } catch (error) {}
+      };
+ 
     useEffect(() => {
-        loadFavorites();
-        loadNames();
+        loadFavorites(); 
+        getPokemonNames();
         
     }, [])
 
@@ -66,6 +85,7 @@ export default function App() {
     }
 
     const onSearch = async (pokemon) => {
+         console.log(pokemon)
         
         if (!pokemon) {
             setloading(false);
@@ -85,30 +105,16 @@ export default function App() {
         }
       
     } 
-
-    const loadNames = async () => {
-        try {
-            const  armarListado = await getPokemonNames();
-            //console.log(nombresCargardos);
-            setNames(armarListado);
-            getPokemon2();
-            
-        } catch (error) {
-            console.log("error en carga de los nombres.")
-        }
-      
-    }
-
  
     return (
         <>
-          <button onclick={() => console.log("hola")} >info</button>
+         
          <FavoriteProvider value={{
              favoritePokemons: favorites,
              updateFavoritePokemons: updateFavoritePokemons
         }} >
   
-         <Navbar onSearch={onSearch} names={names}/>       
+         <Navbar onSearch={onSearch} PokemonNames={PokemonNames} />       
             <Pokedex 
                 pokemons={pokemons}
                 page={page}

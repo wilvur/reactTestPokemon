@@ -8,12 +8,16 @@ import styled from 'styled-components'
     align-items: center;
     justify-content:center;
     padding: 10px;
-    background-color:#01d8fe;
     border-radius:26px;
     overflow:hidden;
     box-shadow:2px 2px 2px grey;
     min-width:150px;  
     filter: opacity(0.9); 
+
+    background-color:#01d8fe;
+
+    //background-color:${props => props.primary ? "white" : "black"}
+
     `;
 
     const Nombre = styled.h3`
@@ -40,7 +44,7 @@ import styled from 'styled-components'
      margin:0.4rem auto;
     `;
 
-const Pokemon = ({pokemon}) => {
+const Pokemon = ({pokemon, pokeL }) => {
 
     const {favoritePokemons, updateFavoritePokemons } =  useContext(FavoriteContext);
     const redHeart = "❤️";
@@ -50,24 +54,28 @@ const Pokemon = ({pokemon}) => {
     /// custom 
     const imagen = pokemon.sprites.front_default;
 
+    console.log(pokemon);
+
     const clickFavorite = (e) => {
         e.preventDefault();
-        updateFavoritePokemons(pokemon.name);
-        
+        updateFavoritePokemons(pokemon.name);  
     }
        
     return (
-        <PokemonCard>
-        <FavoritoBoton onClick={clickFavorite}>{heart}</FavoritoBoton>
-        <Nombre>{pokemon.name} </Nombre>
-        <Sprite><img alt={pokemon.name} src={imagen} /></Sprite>
-        <Bgsprite>
-        <svg width={150} height={150}>
-        <circle cx={50} cy={50} r={50} fill="white" />
-        <circle cx={30} cy={30} r={40} fill="white" />
-	    </svg>
-        </Bgsprite>
-         
+        <PokemonCard primary>
+            <FavoritoBoton onClick={clickFavorite}>{heart}</FavoritoBoton>
+            <Nombre>{pokemon.name}</Nombre>
+            <Sprite><img alt={pokemon.name} src={imagen} /></Sprite>
+            <Bgsprite>
+            <svg width={150} height={150}>
+            <circle cx={50} cy={50} r={50} fill="white" />
+            </svg>
+            </Bgsprite> 
+            <ul>
+                <li>Altura: {pokemon.height}</li>
+                <li>Peso: {pokemon.weight}</li>
+                <li>Orden: {pokemon.order}</li>  
+            </ul>  
         </PokemonCard>
     )
 }
