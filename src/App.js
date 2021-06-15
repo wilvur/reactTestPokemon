@@ -14,13 +14,11 @@ export default function App() {
     const [page, setpage] = useState(0);
     const [total, settotal] = useState(0);
     const [loading, setloading] = useState(true);
-    const [offset, setoffset] = useState(30);
+    const [offset, setoffset] = useState(18);
     const [favorites, setFavorites] = useState([]);
     const [notfound, setNotfound] = useState(false);
 
-
     const [PokemonNames, setPokemonName] = useState([]);
-
 
     const fetchPokemons = async () => {
         try {
@@ -34,8 +32,7 @@ export default function App() {
                 setpokemons(results) ;
                 setloading(false);
                 settotal(Math.ceil(data.count / offset)); 
-                
-            
+                       
         } catch (error) { }            
     }
 
@@ -84,13 +81,10 @@ export default function App() {
         window.localStorage.setItem(localStoreageKey, JSON.stringify(updated) ); 
     }
 
-    const onSearch = async (pokemon) => {
-         console.log(pokemon)
-        
+    const onSearch = async (pokemon) => {        
         if (!pokemon) {
             setloading(false);
-            setNotfound(true);
-           
+            setNotfound(true);   
          }
         const result = await searchPokemon(pokemon);
         if(!result) {
@@ -107,8 +101,7 @@ export default function App() {
     } 
  
     return (
-        <>
-         
+        <>     
          <FavoriteProvider value={{
              favoritePokemons: favorites,
              updateFavoritePokemons: updateFavoritePokemons

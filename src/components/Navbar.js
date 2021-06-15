@@ -16,6 +16,7 @@ const Toolbar = styled.div`
     display:flex;
     flex-direction:row;
     align-items:center;
+    justify-content:center;
     border-bottom:3px black solid;
     -webkit-box-shadow: 0px 5px 15px 7px rgba(0,0,0,0.25); 
     box-shadow: 0px 5px 15px 7px rgba(0,0,0,0.25);

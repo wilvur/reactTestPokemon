@@ -102,6 +102,7 @@ export default function Search({ PokemonNames, onSearch}) {
   };
 
   const onClick = async (e) => {
+    const buscar = e.target.value;
     onSearch(sugerido);
   };
 
