@@ -5,24 +5,24 @@ import styled from 'styled-components'
   ////////////////////// style components /////////////////////////////
 
   const SearchContainer = styled.div` 
-    width: 305px;
-    padding: 5px;
+    width: 20em;
+    padding: 0.4rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid grey;
     background-color: white;
+    border-radius: 0.8rem;
   `;
 
   const SearchInput = styled.input`
-    font-size: 18px;
-    width: 300px;
+    width: 20em;
     outline: none;
     border: none;
-    padding: 5px;
+    font-size: 1em;
+    
   `
-
   const AutoContainer = styled.div`
     position: absolute;
     border-width: 0px 1px 1px 1px;
@@ -30,11 +30,11 @@ import styled from 'styled-components'
     border: 1px solid grey;
     background-color: whitesmoke;
     z-index: 55;
-    width: 300px;
+    width: 18.8em;
     height: 400px;
     overflow: scroll;
     padding: 5px;
-    top: 170px;
+    top: 166px;
     `;
 
   const Sugerido = styled.div`
@@ -50,12 +50,12 @@ import styled from 'styled-components'
    }
  `
  const Button = styled.button`
-    font-size: 18px;
+    font-size: 1em;
     outline: none;
     border: none;
     padding:0.4rem;
     margin:0.4rem;
- 
+    border-radius: 0.8rem;
  
  `
 
@@ -101,9 +101,16 @@ export default function Search({ PokemonNames, onSearch}) {
     setSugerido(s);
   };
 
-  const onClick = async (e) => {
-    const buscar = e.target.value;
-    onSearch(sugerido);
+  const onClick = async () => {
+    const buscar = document.getElementById("inputS").value;
+    if (buscar.length > 2 ) {
+        onSearch(sugerido);
+        console.log("aca busco desde click")
+    }   
+    
+   
+   /// oculto los sugeridos
+    setMostrarResultados(false);
   };
 
 
@@ -111,7 +118,7 @@ export default function Search({ PokemonNames, onSearch}) {
     <>
     <SearchContainer>
       <div>
-        <SearchInput  
+        <SearchInput id="inputS" 
             type="text" 
             value={sugerido} 
             onChange={handleTextChange} 

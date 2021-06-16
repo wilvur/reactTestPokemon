@@ -14,7 +14,6 @@ const PokeBg = {
     normal:require('./normal.png').default,
     fighting:require('./fighting.png').default,
     poison:require('./poison.png').default,
-    bug: require('./bug.png').default,
     flying:require('./flying.png').default,
     dark:require('./dark.png').default,
     fairy:require('./fairy.png').default

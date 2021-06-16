@@ -2,11 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 
 const PaginationContainer = styled.div`
-width:20%;
-margin:2rem 1rem 2rem 40%;  
+width:100%;
 display:flex;
 flex-direction:row;
-align-items:baseline;
+align-items:center;
 justify-content:space-between;
 
 `;
@@ -19,8 +18,8 @@ border:1px solid #9e9e9e;
 display:inline-block;
 cursor:pointer;
 font-family:Arial;
-font-size:15px;
-padding:23px 11px;
+padding:1rem;
+margin:1rem;
 text-decoration:none;
 
 `

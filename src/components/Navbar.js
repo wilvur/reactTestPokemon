@@ -9,6 +9,8 @@ const Logo = styled.div`
   flex-direction:column;
   align-items:center;
   background-color:red;
+  padding:0.6rem;
+  cursor:pointer;
 `;
 
 const Toolbar = styled.div`
@@ -25,16 +27,23 @@ const Toolbar = styled.div`
 
   const FavoritesDiv = styled.div`
    padding:1rem;
+   cursor:pointer;
   `
 
-export default function Navbar({onSearch, PokemonNames}) {
-    const {favoritePokemons} = useContext(FavoriteContext)
+export default function Navbar({onSearch, PokemonNames, onFavorite, onReload}) {
+    const {favoritePokemons} = useContext(FavoriteContext);
+
+    const handleFavorite = () => { 
+      console.log("tenes que entrar");
+      onFavorite();
+    } 
+
     return (
         <>        
-       <Logo><img  alt="pokedex"src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" /></Logo>
+       <Logo onClick={onReload}><img  alt="pokedex"src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" /></Logo>
         <Toolbar>
         <Search onSearch={onSearch} PokemonNames={PokemonNames}/>
-        <FavoritesDiv>🖤 {favoritePokemons.length}</FavoritesDiv>
+        <FavoritesDiv >🖤 <button onClick={handleFavorite}>{favoritePokemons.length}</button></FavoritesDiv>
         </Toolbar>
         </>
     )

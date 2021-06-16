@@ -10,14 +10,47 @@ import PokeBg from './icons/index'
     justify-content:center;
     padding: 10px;
     border-radius:26px;
-    overflow:hidden;
-    box-shadow:2px 2px 2px grey;
-    min-width:150px;  
+    box-shadow:2px 2px 2px grey;   
     filter: opacity(0.9); 
     background-color:${props => props.bcolor || "#01d8fe"}; 
-     
+    cursor:pointer;
+
     `;
 
+    const PokemonCardXL = styled.div`
+    width: 20em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    padding: 1rem;
+    border-radius:2em;
+    box-shadow:2px 2px 2px grey;   
+    filter: opacity(0.9); 
+    background-color:${props => props.bcolor || "#01d8fe"}; 
+    `;
+
+    const DetallesContainerXL = styled.div`
+     width: 100%;
+     display:flex;
+     flex-direction: column;
+     justify-content: right;
+
+     && ul {
+         list-style: none;
+     }
+    `
+    const MovimientosContainer = styled.div`
+     && p {
+        height: 100px;
+        overflow: hidden; 
+     }
+     && span {
+         color:red;
+         cursor:pointer;
+     }
+
+    `
     const Nombre = styled.h3`
      color:#2a2a2a;
      text-shadow: 2px 2px 8px #a0a0a0;
@@ -32,7 +65,6 @@ import PokeBg from './icons/index'
      margin-left: 80%;
     `
     const Sprite = styled.div`
-  
     `;
      
     const Bgsprite = styled.div`
@@ -42,7 +74,7 @@ import PokeBg from './icons/index'
      margin:0.4rem auto;
     `;
 
-const Pokemon = ({pokemon}) => {
+const Pokemon = ({pokemon, onSearch, pokemonsLenght}) => {
 
     const {favoritePokemons, updateFavoritePokemons } =  useContext(FavoriteContext);
     const redHeart = "❤️";
@@ -50,8 +82,16 @@ const Pokemon = ({pokemon}) => {
     const heart = favoritePokemons.includes(pokemon.name) ? redHeart : blackHeart;
 
     /// custom 
-    const imagen = pokemon.sprites.front_default;
+  const imagen = pokemon.sprites.front_default;
+  const imagenXL = pokemon.sprites.other["official-artwork"].front_default;
+  //const imagenXL = pokemon.sprites.map((s, i) => s );
+  console.log(pokemon)
+  //console.log(imagenXL);
 
+  
+  const movimientos =  pokemon.moves.map((m, i ) =>  m.move.name + " / ");
+
+ 
    // defino que tipo de pokemon
    const typePoke = pokemon.types[0].type.name;
    // defino que color de fondo
@@ -75,20 +115,28 @@ const Pokemon = ({pokemon}) => {
        dark:"#c03995",
        fairy:"#4f81a2"
    };
-
+   // traigo el color segun el parametro
    const color = typesPokemones[typePoke]
+
 
     const clickFavorite = (e) => {
         e.preventDefault();
         updateFavoritePokemons(pokemon.name);  
     }
 
+    const clickOnSearch = (s) => {
+        console.log("entre al click");
+        onSearch(pokemon.name)
+    }
+    
     
        
     return (
-        <PokemonCard bcolor ={color} >
+        <>
+        {pokemonsLenght ? (
+        <PokemonCard bcolor ={color} onClick={clickOnSearch} >
             <FavoritoBoton onClick={clickFavorite}>{heart}</FavoritoBoton>
-            <Nombre>{pokemon.name}</Nombre>
+            <Nombre>{pokemon.name} </Nombre>
             <Sprite>   <img alt={pokemon.name} src={imagen} /></Sprite>
             <Bgsprite> <img src={PokeBg[typePoke]} /></Bgsprite> 
             <ul>
@@ -96,10 +144,37 @@ const Pokemon = ({pokemon}) => {
                 <li>Peso: {pokemon.weight}</li>
                 <li>Orden: {pokemon.order}</li> 
                 <li>Experiencia: {pokemon.base_experience}</li> 
-                <li>Tipo: {typePoke}</li>
-            </ul>  
-           
+            
+            </ul>   
         </PokemonCard>
+        ) : (
+            <PokemonCardXL bcolor ={color}  >
+            <FavoritoBoton onClick={clickFavorite}>{heart}</FavoritoBoton>
+            <Nombre>{pokemon.name} </Nombre>
+            <Sprite><img alt={pokemon.name} src={imagenXL}  width="340px"/></Sprite>
+            <Bgsprite> <img src={PokeBg[typePoke]} width="450"/></Bgsprite> 
+            <DetallesContainerXL>
+            <h3> Detalles</h3>
+            <ul>
+                <li>Altura: {pokemon.height}</li>
+                <li>Peso: {pokemon.weight}</li>
+                <li>Orden: {pokemon.order}</li> 
+                <li>Experiencia: {pokemon.base_experience}</li> 
+                <li>Tipo: {typePoke}</li>
+            </ul> 
+             <h3>Movimientos</h3>
+             <MovimientosContainer>
+              <p>{movimientos}</p>
+              <span>ver mas</span>
+             </MovimientosContainer>
+             
+            </DetallesContainerXL> 
+        </PokemonCardXL>
+            
+        )
+    }
+
+        </>
     )
 }
 

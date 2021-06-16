@@ -9,7 +9,18 @@
     width: 50vh;
     height:50vh;
     z-index: -999;
-    filter: opacity(0.3);
+    filter: opacity(0.8);
     
 }
+
+#loading_img {
+    width: 145px;
+    height:145px ;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
 

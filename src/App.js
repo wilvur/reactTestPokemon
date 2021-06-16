@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import './style.css'
 import Navbar from './components/Navbar'
 import Pokedex from './components/Pokedex'
+import Footer from './components/Footer'
 import { getPokemon, getPokemonData, searchPokemon, getPokemonNames } from './api'
 import { FavoriteProvider } from './contexts/favoritesContexts'
 
@@ -10,16 +11,14 @@ const localStoreageKey = "favorite_pokemon"
 
 export default function App() {
     const [pokemons, setpokemons] = useState([]);
-    const [pokemonsL, setpokemonL] = useState(30);
     const [page, setpage] = useState(0);
     const [total, settotal] = useState(0);
     const [loading, setloading] = useState(true);
     const [offset, setoffset] = useState(18);
     const [favorites, setFavorites] = useState([]);
     const [notfound, setNotfound] = useState(false);
-
     const [PokemonNames, setPokemonName] = useState([]);
-
+    /////////// carga los pokemones para el pokedex
     const fetchPokemons = async () => {
         try {
             setloading(true);
@@ -31,16 +30,15 @@ export default function App() {
             const results = await Promise.all(promises);
                 setpokemons(results) ;
                 setloading(false);
-                settotal(Math.ceil(data.count / offset)); 
-                       
+                settotal(Math.ceil(data.count / offset));                     
         } catch (error) { }            
     }
-
+    //////////////    carga la lista de pokemones que estan como favorito 
     const  loadFavorites = () => {
         const pokemons = JSON.parse(window.localStorage.getItem(localStoreageKey)) ||  [] ;
         setFavorites(pokemons);
     }
-
+    /////////////// carga la lista de nombre de pokemones para la busqueda // pasar al api
     const getPokemonNames = async () => {
         try {
           let url = `https://pokeapi.co/api/v2/pokemon?limit=1`;
@@ -59,14 +57,14 @@ export default function App() {
  
     useEffect(() => {
         loadFavorites(); 
-        getPokemonNames();
-        
+        getPokemonNames();  
     }, [])
 
     useEffect(() => {
         fetchPokemons();
     }, [page])
 
+    // carga un pokemon a la lista de favoritos 
     const updateFavoritePokemons = (name) => {
         const updated = [...favorites];
         const isFavorite = favorites.indexOf(name);
@@ -80,25 +78,38 @@ export default function App() {
         setFavorites(updated);
         window.localStorage.setItem(localStoreageKey, JSON.stringify(updated) ); 
     }
+    // funcion para la busqueda de pokemonones
 
     const onSearch = async (pokemon) => {        
         if (!pokemon) {
             setloading(false);
-            setNotfound(true);   
+            setNotfound(true);  
          }
         const result = await searchPokemon(pokemon);
         if(!result) {
+           
             setloading(false);
             setNotfound(true);
             return;
         } else {
-            setpokemons([result]);
+            setpokemons([result]);    
             setloading(false);
             setNotfound(false);
             setpage(0)
-        }
-      
+        }     
     } 
+    /// funcion para mostrar en el pokedex todo los favoritos 
+    const onFavorite = () => {
+        //falta desarrollar
+        const pokemons = JSON.parse(window.localStorage.getItem(localStoreageKey)) ||  [] ;
+        console.log(pokemons)
+       // setpokemons(pokemons);
+    }
+
+    const onReload = () => {
+        fetchPokemons(); 
+        console.log("entro al reload")
+    }
  
     return (
         <>     
@@ -107,15 +118,18 @@ export default function App() {
              updateFavoritePokemons: updateFavoritePokemons
         }} >
   
-         <Navbar onSearch={onSearch} PokemonNames={PokemonNames} />       
+         <Navbar onSearch={onSearch} PokemonNames={PokemonNames} onFavorite={onFavorite} onReload={onReload} />       
             <Pokedex 
                 pokemons={pokemons}
                 page={page}
                 setpage={setpage} 
                 total={total}
-                loading={loading}            
+                loading={loading}   
+                onSearch={onSearch}         
             />
+        <Footer />
         </FavoriteProvider>
+       
         </>
     )
 }
