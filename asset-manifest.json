@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/reactTestPokemon/static/css/main.d05a06d8.chunk.css",
+    "main.js": "/reactTestPokemon/static/js/main.da34cadb.chunk.js",
+    "main.js.map": "/reactTestPokemon/static/js/main.da34cadb.chunk.js.map",
+    "runtime-main.js": "/reactTestPokemon/static/js/runtime-main.ff8b52fe.js",
+    "runtime-main.js.map": "/reactTestPokemon/static/js/runtime-main.ff8b52fe.js.map",
+    "static/js/2.ea048aad.chunk.js": "/reactTestPokemon/static/js/2.ea048aad.chunk.js",
+    "static/js/2.ea048aad.chunk.js.map": "/reactTestPokemon/static/js/2.ea048aad.chunk.js.map",
+    "index.html": "/reactTestPokemon/index.html",
+    "static/css/main.d05a06d8.chunk.css.map": "/reactTestPokemon/static/css/main.d05a06d8.chunk.css.map",
+    "static/js/2.ea048aad.chunk.js.LICENSE.txt": "/reactTestPokemon/static/js/2.ea048aad.chunk.js.LICENSE.txt",
+    "static/media/background.4edc1a97.svg": "/reactTestPokemon/static/media/background.4edc1a97.svg",
+    "static/media/pokeball.8699b6c7.svg": "/reactTestPokemon/static/media/pokeball.8699b6c7.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ff8b52fe.js",
+    "static/js/2.ea048aad.chunk.js",
+    "static/css/main.d05a06d8.chunk.css",
+    "static/js/main.da34cadb.chunk.js"
+  ]
+}
