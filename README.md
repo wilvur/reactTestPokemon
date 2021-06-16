@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Mi Primera APP con React Ver. Beta 01
+=======
+Mi Primera APP con React POKEDEX Beta 0.1
+>>>>>>> 4be01374ba9cbbaf3170f055459dab2021fc94ab
 
 REACT 
 REST-API 
