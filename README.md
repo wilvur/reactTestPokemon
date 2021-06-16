@@ -1,4 +1,4 @@
-Mi Primera APP con React 
+Mi Primera APP con React POKEDEX Beta 0.1
 
 REACT 
 REST-API 
